@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   wordpress:
-    image: wordpress:php8.1-apache
+    build: .
     container_name: wordpress
     restart: always
     depends_on:
@@ -12,7 +12,7 @@ services:
     volumes:
       - ./src:/var/www/html
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
@@ -23,7 +23,7 @@ services:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/configs/my.cnf:/etc/mysql/my.cnf
     ports:
-      - 3306:3306
+      - "3306:3306"
     image: mysql:5.6
     restart: always
     environment:
@@ -35,8 +35,8 @@ services:
   nginx:
     image: linuxserver/letsencrypt
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     volumes:
       - ./docker/nginx/config:/config
       - ./docker/nginx/nginx.conf:/config/nginx/site-confs/default
@@ -47,7 +47,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - URL=yourdomainname.com
-      - SUBDOMAINS=www,
+      - URL=back.trademarketnews.com
+      #- SUBDOMAINS=www,
       - VALIDATION=http
       - STAGING=false #optional
