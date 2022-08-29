@@ -10,7 +10,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./src:/var/www/html
+      - wordpress:/var/www/html
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: exampleuser
@@ -20,7 +20,7 @@ services:
   mysql:
     container_name: mysql
     volumes:
-      - ./docker/mysql/data:/var/lib/mysql
+      - mysql:/var/lib/mysql
       - ./docker/mysql/configs/my.cnf:/etc/mysql/my.cnf
     ports:
       - "3306:3306"
@@ -38,7 +38,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./docker/nginx/config:/config
+      - nginx:/config
       - ./docker/nginx/nginx.conf:/config/nginx/site-confs/default
       - ./docker/nginx/ssl.conf:/config/nginx/ssl.conf
     container_name: nginx
@@ -51,3 +51,8 @@ services:
       #- SUBDOMAINS=www,
       - VALIDATION=http
       - STAGING=false #optional
+
+volumes:
+    wordpress:
+    mysql:
+    nginx:
