@@ -33,7 +33,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
 
   nginx:
-    image: linuxserver/letsencrypt
+    image: lscr.io/linuxserver/swag
     ports:
       - "80:80"
       - "443:443"
