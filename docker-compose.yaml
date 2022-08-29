@@ -11,8 +11,11 @@ services:
     tty: true
     volumes:
       - ./src:/var/www/html
-    env_file:
-      - .env
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
 
   mysql:
     container_name: mysql
@@ -23,8 +26,11 @@ services:
       - 3306:3306
     image: mysql:5.6
     restart: always
-    env_file:
-      - .env
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
 
   nginx:
     image: linuxserver/letsencrypt
