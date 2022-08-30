@@ -17,18 +17,16 @@ RUN apt-get install -y --no-install-recommends \
 
 RUN pecl install \
     apcu \
-    redis \
-    imagick;
+    redis ;
 
 RUN rm -rf /tmp/pear;
 
 
 RUN docker-php-ext-enable \
     apcu \
-    redis \
-    imagick;
+    redis;
 
-COPY php/custom.ini $PHP_INI_DIR/conf.d/
+COPY docker/php/custom.ini $PHP_INI_DIR/conf.d/
 
 
 CMD cron && tail -f /var/log/cron.log
