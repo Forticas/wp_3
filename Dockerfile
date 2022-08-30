@@ -12,8 +12,10 @@ RUN touch /var/log/cron.log
 RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install -y --no-install-recommends \
-    cron \
-    libmagickwand-dev;
+    supervisor \
+    cron ;
+
+RUN mkdir -p /var/log/supervisor
 
 RUN pecl install \
     apcu \
@@ -24,9 +26,11 @@ RUN rm -rf /tmp/pear;
 
 RUN docker-php-ext-enable \
     apcu \
-    redis;
+    redis ;
 
+COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/php/custom.ini $PHP_INI_DIR/conf.d/
 
 
-CMD cron && tail -f /var/log/cron.log
+
+CMD ["/usr/bin/supervisord"]
