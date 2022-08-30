@@ -13,18 +13,20 @@ services:
       - wordpress:/var/www/html
     environment:
       WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
-
+      WORDPRESS_DB_USER: houssem
+      WORDPRESS_DB_PASSWORD: Hafidha_18
+      WORDPRESS_DB_NAME: trademarketnews
+      WORDPRESS_TABLE_PREFIX: 365_m_
+      WORDPRESS_CONFIG_EXTRA: |
+        define('DISABLE_WP_CRON', true);
   mysql:
     container_name: mysql
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
+      MYSQL_DATABASE: trademarketnews
+      MYSQL_USER: houssem
+      MYSQL_PASSWORD: Hafidha_18
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - mysql:/var/lib/mysql
@@ -44,8 +46,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - URL=back.trademarketnews.com
-      #- SUBDOMAINS=www,
+      - URL=trademarketnews.com
+      - SUBDOMAINS=www,
       - VALIDATION=http
       - STAGING=false #optional
 
